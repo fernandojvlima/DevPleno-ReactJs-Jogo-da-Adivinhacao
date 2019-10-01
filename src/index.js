@@ -4,28 +4,41 @@ import ReactDOM from "react-dom";
 import "./styles.css";
 
 function App(props) {
-  const [numMin, setNumMin] = useState(0);
-  const [numMax, setNumMax] = useState(300);
-  const [palpite, setPalpite] = useState(150);
-  const [numTentativas, SetTentativas] = useState(1);
+  //Entrada, Rodando, Fim
   const [estadoJogo, setJogo] = useState("ENTRADA");
 
-  const Menor = () => {
-    setNumMax(palpite);
-    setNumMin(numMin);
-    setPalpite((palpite + numMin) / 2);
-    SetTentativas(numTentativas + 1);
-  };
+  //Min e Maximo Numero
+  const [numMin, setNumMin] = useState(0);
+  const [numMax, setNumMax] = useState(300);
 
-  const Maior = () => {
-    setNumMin(palpite);
-    setNumMax(numMax);
-    setPalpite((palpite + numMax) / 2);
-    SetTentativas(numTentativas + 1);
-  };
+  //Palpites
+  const [palpite, setPalpite] = useState(150);
+
+  //Contador de Palpites
+  const [numTentativas, SetTentativas] = useState(1);
 
   const iniciarJogo = () => {
     setJogo("RODANDO");
+    setNumMin(0);
+    setNumMax(300);
+    setPalpite(150);
+    SetTentativas(1);
+  };
+
+  const Menor = () => {
+    SetTentativas(numTentativas + 1);
+    setNumMax(palpite);
+    setNumMin(numMin);
+    const proxPalpite = parseInt((palpite - numMin) / 2) + numMin;
+    setPalpite(proxPalpite);
+  };
+
+  const Maior = () => {
+    SetTentativas(numTentativas + 1);
+    setNumMin(palpite);
+    setNumMax(numMax);
+    const proxPalpite = parseInt((numMax - palpite) / 2) + palpite;
+    setPalpite(proxPalpite);
   };
 
   const Acertou = () => {
