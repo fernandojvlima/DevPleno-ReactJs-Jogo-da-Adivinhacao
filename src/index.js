@@ -13,12 +13,14 @@ function App(props) {
   const Menor = () => {
     setNumMax(palpite);
     setNumMin(numMin);
+    setPalpite((palpite + numMin) / 2);
     SetTentativas(numTentativas + 1);
   };
 
   const Maior = () => {
     setNumMin(palpite);
     setNumMax(numMax);
+    setPalpite((palpite + numMax) / 2);
     SetTentativas(numTentativas + 1);
   };
 
@@ -28,15 +30,27 @@ function App(props) {
 
   const Acertou = () => {
     setJogo("FIM");
+  };
+
+  if (estadoJogo === "ENTRADA") {
     return (
-      <div>
+      <div className="App">
+        <h2>Bem Vindo Ao Jogo da Adivinhação</h2>
+        <h3>Escolha um número entre 0 e 300</h3>
+        <button onClick={iniciarJogo}>Iniciar</button>
+      </div>
+    );
+  }
+
+  if (estadoJogo === "FIM") {
+    return (
+      <div className="App">
         <h3>O Computador acertou o número em {numTentativas} palpites </h3>
-        <br />
         <h4>Deseja Jogar Novamente?</h4>
         <button onClick={iniciarJogo}>Reiniciar</button>
       </div>
     );
-  };
+  }
 
   if (estadoJogo === "RODANDO") {
     return (
@@ -51,16 +65,6 @@ function App(props) {
           Intervalo de números entre Min: {numMin} e Max: {numMax}
         </h4>
         <h5>Numero de Tentativas Utilizadas: {numTentativas}</h5>
-      </div>
-    );
-  }
-
-  if (estadoJogo === "ENTRADA") {
-    return (
-      <div className="App">
-        <h2>Bem Vindo Ao Jogo da Adivinhação</h2>
-        <h3>Escolha um número entre 0 e 300</h3>
-        <button onClick={iniciarJogo}>Iniciar</button>
       </div>
     );
   }
